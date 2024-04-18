@@ -37,7 +37,7 @@ class CycleDetaction {
         graph[5].add(new Edge(5, 4, 1));
         graph[5].add(new Edge(5, 6, 1));
 
-         graph[6].add(new Edge(6, 5, 1));
+        graph[6].add(new Edge(6, 5, 1));
     }
 
 
