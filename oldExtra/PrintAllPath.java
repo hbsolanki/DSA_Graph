@@ -1,8 +1,8 @@
+package oldExtra;
 import java.util.*;
 
-class DFS {
-    
-    static class Edge {
+class PrintAllPath {
+     static class Edge {
         int src;
         int dest;
         int wt;
@@ -41,21 +41,10 @@ class DFS {
     }
 
 
-    public static void dfs(ArrayList<Edge> graph[], int curr, boolean vis[]) {
-        System.out.print(curr + " ");
-        vis[curr] = true;
-        for (int i = 0; i < graph[curr].size(); i++) {
-            Edge e = graph[curr].get(i);
-
-            if (vis[e.dest] == false) {
-                dfs(graph, e.dest, vis);
-            }
-        }
-    }
-    
-    public static void printAllPath(ArrayList<Edge> graph[],int curr,int target,String ans,boolean vis[]){
+    public static void printAllPath(ArrayList<Edge> graph[], boolean vis[], int curr, int target, String path) {
+        
         if (curr == target) {
-            System.out.println(ans+curr);
+            System.out.println(path);
             return;
         }
 
@@ -64,11 +53,12 @@ class DFS {
 
             if (!vis[e.dest]) {
                 vis[curr] = true;
-                printAllPath(graph, e.dest, target, ans+curr, vis);
+                printAllPath(graph, vis, e.dest, target, path+e.dest);
                 vis[curr] = false;
             }
         }
-    }
+    
+   }
     
     public static void main(String[] args) {
         int V = 7;
@@ -79,9 +69,7 @@ class DFS {
         }
 
         createGraph(graph);
-        // dfs(graph, 0, new boolean[V]);
-        printAllPath(graph,0 , 5, "", new boolean[V]);
-
+        printAllPath(graph, new boolean[V], 0 , 5, "0");
 
     }
 }

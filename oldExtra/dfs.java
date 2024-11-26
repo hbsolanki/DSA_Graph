@@ -1,7 +1,8 @@
+package oldExtra;
 import java.util.*;
 
-class CycleDetaction {
-
+class DFS {
+    
     static class Edge {
         int src;
         int dest;
@@ -41,37 +42,35 @@ class CycleDetaction {
     }
 
 
-    public static boolean cycleDetact(ArrayList<Edge> graph[],int v) {
-        boolean vis[] = new boolean[v];
+    public static void dfs(ArrayList<Edge> graph[], int curr, boolean vis[]) {
+        System.out.print(curr + " ");
+        vis[curr] = true;
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
 
-        for (int i = 0; i < graph.length; i++) {
-            if (!vis[i] && cycleDetactUtil(graph, i, vis, new boolean[v])) {
-                return true;
+            if (vis[e.dest] == false) {
+                dfs(graph, e.dest, vis);
             }
         }
-        return false;
     }
     
-    public static boolean cycleDetactUtil(ArrayList<Edge> graph[], int curr, boolean vis[], boolean stack[]) {
-        vis[curr] = true;
-        stack[curr] = true;
+    public static void printAllPath(ArrayList<Edge> graph[],int curr,int target,String ans,boolean vis[]){
+        if (curr == target) {
+            System.out.println(ans+curr);
+            return;
+        }
 
         for (int i = 0; i < graph[curr].size(); i++) {
             Edge e = graph[curr].get(i);
 
-            if (stack[e.dest]) {
-                return true;
+            if (!vis[e.dest]) {
+                vis[curr] = true;
+                printAllPath(graph, e.dest, target, ans+curr, vis);
+                vis[curr] = false;
             }
-
-            if (!vis[e.dest] && cycleDetactUtil(graph, e.dest, vis, stack))
-                return true;
         }
-        
-        stack[curr] = false;
-
-        return false;
     }
-
+    
     public static void main(String[] args) {
         int V = 7;
 
@@ -81,8 +80,9 @@ class CycleDetaction {
         }
 
         createGraph(graph);
-        boolean ans = cycleDetact(graph, V);
-        System.out.println(ans);
+        // dfs(graph, 0, new boolean[V]);
+        printAllPath(graph,0 , 5, "", new boolean[V]);
+
+
     }
-    
 }

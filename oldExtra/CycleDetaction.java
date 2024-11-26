@@ -1,7 +1,9 @@
+package oldExtra;
 import java.util.*;
 
-class PrintAllPath {
-     static class Edge {
+class CycleDetaction {
+
+    static class Edge {
         int src;
         int dest;
         int wt;
@@ -40,25 +42,37 @@ class PrintAllPath {
     }
 
 
-    public static void printAllPath(ArrayList<Edge> graph[], boolean vis[], int curr, int target, String path) {
-        
-        if (curr == target) {
-            System.out.println(path);
-            return;
+    public static boolean cycleDetact(ArrayList<Edge> graph[],int v) {
+        boolean vis[] = new boolean[v];
+
+        for (int i = 0; i < graph.length; i++) {
+            if (!vis[i] && cycleDetactUtil(graph, i, vis, new boolean[v])) {
+                return true;
+            }
         }
+        return false;
+    }
+    
+    public static boolean cycleDetactUtil(ArrayList<Edge> graph[], int curr, boolean vis[], boolean stack[]) {
+        vis[curr] = true;
+        stack[curr] = true;
 
         for (int i = 0; i < graph[curr].size(); i++) {
             Edge e = graph[curr].get(i);
 
-            if (!vis[e.dest]) {
-                vis[curr] = true;
-                printAllPath(graph, vis, e.dest, target, path+e.dest);
-                vis[curr] = false;
+            if (stack[e.dest]) {
+                return true;
             }
+
+            if (!vis[e.dest] && cycleDetactUtil(graph, e.dest, vis, stack))
+                return true;
         }
-    
-   }
-    
+        
+        stack[curr] = false;
+
+        return false;
+    }
+
     public static void main(String[] args) {
         int V = 7;
 
@@ -68,7 +82,8 @@ class PrintAllPath {
         }
 
         createGraph(graph);
-        printAllPath(graph, new boolean[V], 0 , 5, "0");
-
+        boolean ans = cycleDetact(graph, V);
+        System.out.println(ans);
     }
+    
 }
