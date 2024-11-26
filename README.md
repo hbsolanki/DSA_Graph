@@ -61,7 +61,7 @@ Ensure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/graph-dsa.git
+   git clone https://github.com/hbsolanki/DSA_Graph.git
    cd graph-dsa
    ```
 
@@ -129,4 +129,4 @@ Developed and maintained by **Hardik Solanki**.
 For any queries or suggestions, feel free to reach out:
 
 - **Email:** hbsolanki0524@gmail.com
-- **LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/in/hbsolanki/)
+- **LinkedIn:** [LinkedIn Profile](https://www.linkedin.com/in/hbsolanki/)
